@@ -28,13 +28,15 @@ int		g_flag_s;
 int		g_flag_r;
 int		g_flag_p;
 int		g_flag_q;
+int     g_was_p;
 
 void	md5(unsigned char *input);
 void	sha256(unsigned char *input);
 void	util_init();
 int		util_hash(char *input);
+char    *util_hash_name(int type);
 int		util_flag(char *input);
-void	util_error(int error_num);
+void    util_error(int error_num, char *str);
 int		read_check(char *input);
 char	*read_process(int fd);
 

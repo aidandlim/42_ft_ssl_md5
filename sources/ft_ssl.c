@@ -19,12 +19,8 @@ void ft_ssl_switch(char *input, char *file)
 	else
 	{
 		if (!g_flag_q && !g_flag_r && file != NULL)
-		{
-			if(g_hash == 1)
-				g_flag_s ? ft_printf("MD5 (\"%s\") = ", file) : ft_printf("MD5 (%s) = ", file);
-			else if(g_hash == 2)
-				g_flag_s ? ft_printf("SHA256 (\"%s\") = ", file) : ft_printf("SHA256 (%s) = ", file);
-		}
+			g_flag_s ? ft_printf("%s (\"%s\") = ", util_hash_name(1), file) :
+				ft_printf("%s (%s) = ", util_hash_name(1), file);
 	}
 	if (g_hash == 1)
 		md5((unsigned char *)input);
@@ -33,6 +29,7 @@ void ft_ssl_switch(char *input, char *file)
 	if (!g_flag_q && file != NULL && g_flag_r)
 		g_flag_s ? ft_printf(" \"%s\"", file) : ft_printf(" %s", file);
 	g_flag_s ? g_flag_s = 0 : 0;
+	g_flag_p ? g_was_p = 1 : 0;
 	g_flag_p ? g_flag_p = 0 : 0;
 	free(input);
 }
@@ -50,7 +47,7 @@ void ft_ssl_value(char *argv)
 	{
 		if((fd = read_check(argv)) == -1)
 		{
-			util_error(3);
+			util_error(3, argv);
 			return ;
 		}
 		input = read_process(fd);
@@ -64,7 +61,7 @@ void ft_ssl(int argc, char **argv)
 	util_init();
 	if (!util_hash(argv[1]))
 	{
-		util_error(2);
+		util_error(2, argv[1]);
 		return ;
 	}
 	if (argc == 2)
@@ -73,8 +70,8 @@ void ft_ssl(int argc, char **argv)
 	{
 		if (!g_flag && util_flag(argv[g_i]))
 		{
-			if (g_flag_p)
-				ft_ssl_value(NULL);
+			g_flag_p ? ft_ssl_value(NULL) : 0;
+			g_flag_s ? g_flag = 1 : 0;
 		}
 		else
 		{
@@ -90,7 +87,7 @@ int main(int argc, char *argv[])
 	if(argc > 1)
 		ft_ssl(argc, argv);
 	else
-		util_error(1);
+		util_error(1, NULL);
 	// system("leaks ft_ssl");
 	return (0);
 }
