@@ -34,6 +34,8 @@ int util_hash(char *input)
 		g_hash = 3;
 	else if (!ft_strcmp(input, "sha512") || !ft_strcmp(input, "SHA512"))
 		g_hash = 4;
+	else if (!ft_strcmp(input, "sha384") || !ft_strcmp(input, "SHA384"))
+		g_hash = 5;
 	else
 		return (0);
 	return (1);
@@ -49,6 +51,8 @@ char *util_hash_name(int type)
 		return (type ? "SHA224" : "sha224");
 	if (g_hash == 4)
 		return (type ? "SHA512" : "sha512");
+	if (g_hash == 5)
+		return (type ? "SHA384" : "sha384");
 	return (NULL);
 }
 
@@ -72,7 +76,7 @@ void util_error(int error_num, char *str)
 	if (error_num == 1)
 		ft_printf("usage: ft_ssl command [command opts] [command args]\n");
 	else if (error_num == 2)
-		ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\nMessage Digest commands:\nmd5\nsha256\nsha224\n\n", str);
+		ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\nMessage Digest commands:\nmd5\nsha256\nsha224\nsha512\nsha384\n\n", str);
 	else if (error_num == 3)
 		ft_printf("ft_ssl: %s: %s: No such file or directory\n", util_hash_name(0), str);
 }

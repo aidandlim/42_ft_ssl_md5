@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_sha512.c                                    :+:      :+:    :+:   */
+/*   ft_ssl_sha384.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,21 +11,21 @@
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-#include "ft_ssl_sha512.h"
+#include "ft_ssl_sha384.h"
 
-void	sha512_init(unsigned char *input, t_sha512 *t, unsigned long long length)
+void	sha384_init(unsigned char *input, t_sha384 *t, unsigned long long length)
 {
 	unsigned int	i;
 	u_int64_t		len;
 	
-	g_a = 0x6a09e667f3bcc908;
-	g_b = 0xbb67ae8584caa73b;
-	g_c = 0x3c6ef372fe94f82b;
-	g_d = 0xa54ff53a5f1d36f1;
-	g_e = 0x510e527fade682d1;
-	g_f = 0x9b05688c2b3e6c1f;
-	g_g = 0x1f83d9abfb41bd6b;
-	g_h = 0x5be0cd19137e2179;
+	g_a = 0xcbbb9d5dc1059ed8;
+	g_b = 0x629a292a367cd507;
+	g_c = 0x9159015a3070dd17;
+	g_d = 0x152fecd8f70e5939;
+	g_e = 0x67332667ffc00b31;
+	g_f = 0x8eb44a8768581511;
+	g_g = 0xdb0c2e0d64f98fa7;
+	g_h = 0x47b5481dbefa4fa4;
 	t->set = (unsigned char *)ft_memalloc(sizeof(unsigned char) * (128 * length));
 	i = 0;
 	while (input[i])
@@ -43,7 +43,7 @@ void	sha512_init(unsigned char *input, t_sha512 *t, unsigned long long length)
 	}
 }
 
-void	sha512_set(t_sha512 *t, int i)
+void	sha384_set(t_sha384 *t, int i)
 {
 	int			j;
 	int			k;
@@ -71,7 +71,7 @@ void	sha512_set(t_sha512 *t, int i)
 	}
 }
 
-void	sha512_loop(t_sha512 *t)
+void	sha384_loop(t_sha384 *t)
 {
 	unsigned long long 	j;
 	unsigned long long	s1;
@@ -85,7 +85,7 @@ void	sha512_loop(t_sha512 *t)
 		s1 = X(RR_64(t->a, 28), RR_64(t->a, 34), RR_64(t->a, 39));
 		t1 = Z(t->a, t->b, t->c, s1);
 		s2 = X(RR_64(t->e, 14), RR_64(t->e, 18), RR_64(t->e, 41));
-		t2 = Y(t->e, t->f, t->g, t->h, s2, g_sha512[j], g_chunk[j]);
+		t2 = Y(t->e, t->f, t->g, t->h, s2, g_sha384[j], g_chunk[j]);
 		t->h = t->g;
 		t->g = t->f;
 		t->f = t->e;
@@ -96,9 +96,10 @@ void	sha512_loop(t_sha512 *t)
 		t->a = t1 + t2;
 		j++;
 	}
+	
 }
 
-void	sha512_copy(t_sha512 *t, int type)
+void	sha384_copy(t_sha384 *t, int type)
 {
 	if (!type)
 	{
@@ -124,24 +125,24 @@ void	sha512_copy(t_sha512 *t, int type)
 	}
 }
 
-void	sha512(unsigned char *input)
+void	sha384(unsigned char *input)
 {
-	t_sha512			t;
+	t_sha384			t;
 	unsigned int		i;
 	unsigned long long	length;
 
 	i = 0;
 	length = input ? (ft_strlen((char *)input) + 8) / 128 + 1 : 1;
-	sha512_init(input, &t, length);
+	sha384_init(input, &t, length);
 	while (i < (int)(length))
 	{
-		sha512_set(&t, i);
-		sha512_copy(&t, 0);
-		sha512_loop(&t);
-		sha512_copy(&t, 1);
+		sha384_set(&t, i);
+		sha384_copy(&t, 0);
+		sha384_loop(&t);
+		sha384_copy(&t, 1);
 		i++;
 	}
-	ft_printf("%.16lx%.16lx%.16lx%.16lx%.16lx%.16lx%.16lx%.16lx",
-		g_a, g_b, g_c, g_d, g_e, g_f, g_g, g_h);
+	ft_printf("%.16lx%.16lx%.16lx%.16lx%.16lx%.16lx",
+		g_a, g_b, g_c, g_d, g_e, g_f);
 	free(t.set);
 }

@@ -77,6 +77,18 @@ norm:
 	norminette ./resources/libft/*.c
 	norminette ./resources/printf/*.c
 
+check:
+	@echo "hello 42 world!" | openssl md5
+	@echo "hello 42 world!" | ./ft_ssl md5
+	@echo "hello 42 world!" | shasum -a 224
+	@echo "hello 42 world!" | ./ft_ssl sha224
+	@echo "hello 42 world!" | shasum -a 256
+	@echo "hello 42 world!" | ./ft_ssl sha256
+	@echo "hello 42 world!" | shasum -a 384
+	@echo "hello 42 world!" | ./ft_ssl sha384
+	@echo "hello 42 world!" | shasum -a 512
+	@echo "hello 42 world!" | ./ft_ssl sha512
+
 flag:
 	@echo ""
 	@echo "$(GREEN_BOLD)FLAG CHECK$(RESET)"

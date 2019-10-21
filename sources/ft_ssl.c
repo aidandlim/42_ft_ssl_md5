@@ -22,7 +22,9 @@ void ft_ssl_switch(char *input, char *file)
 	else if(g_hash == 3)
 		sha224((unsigned char *)input);
 	else if(g_hash == 4)
-		sha512(input);
+		sha512((unsigned char *)input);
+	else if(g_hash == 5)
+		sha384((unsigned char *)input);
 	print_after(input, file);
 }
 

@@ -60,10 +60,6 @@ void			sha224_set(t_sha224 *t, unsigned int i)
 		g_chunk[j] = g_chunk[j - 16] + s1 + g_chunk[j - 7] + s2;
 		j++;
 	}
-	t->a = g_a;
-	t->b = g_b;
-	t->c = g_c;
-	t->d = g_d;
 }
 
 void			sha224_loop(t_sha224 *t)
@@ -93,6 +89,32 @@ void			sha224_loop(t_sha224 *t)
 	}
 }
 
+void	sha224_copy(t_sha224 *t, int type)
+{
+	if (!type)
+	{
+		t->a = g_a;
+		t->b = g_b;
+		t->c = g_c;
+		t->d = g_d;
+		t->e = g_e;
+		t->f = g_f;
+		t->g = g_g;
+		t->h = g_h;
+	}
+	else
+	{
+		g_a += t->a;
+		g_b += t->b;
+		g_c += t->c;
+		g_d += t->d;
+		g_e += t->e;
+		g_f += t->f;
+		g_g += t->g;
+		g_h += t->h;
+	}
+}
+
 void			sha224(unsigned char *input)
 {
 	t_sha224 t;
@@ -105,19 +127,9 @@ void			sha224(unsigned char *input)
 	while (i < (length * 8) / 512)
 	{
 		sha224_set(&t, i);
-		t.e = g_e;
-		t.f = g_f;
-		t.g = g_g;
-		t.h = g_h;
+		sha224_copy(&t, 0);
 		sha224_loop(&t);
-		g_a += t.a;
-		g_b += t.b;
-		g_c += t.c;
-		g_d += t.d;
-		g_e += t.e;
-		g_f += t.f;
-		g_g += t.g;
-		g_h += t.h;
+		sha224_copy(&t, 1);
 		i++;
 	}
 	ft_printf("%.8x%.8x%.8x%.8x%.8x%.8x%.8x",

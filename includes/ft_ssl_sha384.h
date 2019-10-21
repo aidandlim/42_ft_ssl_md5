@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SSL_SHA512_H
-# define FT_SSL_SHA512_H
+#ifndef FT_SSL_SHA384_H
+# define FT_SSL_SHA384_H
 
 # define X(x, y, z) ((x) ^ (y) ^ (z))
 # define Y(x, y, z, a, b, c, d) (((x & y) ^ (~x & z)) + a + b + c + d)
@@ -27,7 +27,7 @@ unsigned long long g_f;
 unsigned long long g_g;
 unsigned long long g_h;
 unsigned long long g_chunk[80];
-unsigned long long g_sha512[80] = {
+unsigned long long g_sha384[80] = {
     0x428a2f98d728ae22, 0x7137449123ef65cd,
 	0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc,
 	0x3956c25bf348b538, 0x59f111f1b605d019,
@@ -70,7 +70,7 @@ unsigned long long g_sha512[80] = {
 	0x5fcb6fab3ad6faec, 0x6c44198c4a475817
 };
 
-typedef struct	s_sha512
+typedef struct	s_sha384
 {
 	unsigned long long	a;
 	unsigned long long	b;
@@ -81,6 +81,6 @@ typedef struct	s_sha512
 	unsigned long long	g;
 	unsigned long long	h;
 	unsigned char		*set;
-}				t_sha512;
+}				t_sha384;
 
 #endif

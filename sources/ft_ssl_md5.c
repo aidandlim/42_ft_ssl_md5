@@ -79,7 +79,7 @@ void	md5_loop(t_md5 *t, int j)
 	t->a = t->d;
 	t->d = t->c;
 	t->c = t->b;
-	t->b += ROTATE(t->f, g_md5[j]);
+	t->b += LR_32(t->f, g_md5[j]);
 }
 
 void	md5(unsigned char *input)

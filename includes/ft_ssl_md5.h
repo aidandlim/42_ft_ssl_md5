@@ -17,7 +17,7 @@
 # define G(x, y, z) (((x) & (z)) | ((y) & (~z)))
 # define H(x, y, z) ((x) ^ (y) ^ (z))
 # define I(x, y, z) ((y) ^ ((x) | (~z)))
-# define ROTATE(x, n) (((x) << (n)) | ((x) >> (32-(n))))
+# define LR_32(x, n)  (((x) << (n)) | ((x) >> (32 - (n))))
 # define REVERSE(x) ((x << 24 & 0xff000000) + (x << 8 & 0xff0000) + (x >> 8 & 0xff00) + (x >> 24 & 0xff))
 
 unsigned int g_a;
