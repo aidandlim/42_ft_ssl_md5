@@ -6,7 +6,7 @@
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 20:32:23 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 18:16:18 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/20 20:15:52 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define X(x, y, z) ((x) ^ (y) ^ (z))
 # define Y(x, y, z, a, b, c, d) (((x & y) ^ (~x & z)) + a + b + c + d)
 # define Z(x, y, z, a) (((x & y) ^ (x & z) ^ (y & z)) + a)
+# define RR_32(x, n)  (((x) >> (n)) | ((x) << (32 - (n))))
 
 unsigned int g_a;
 unsigned int g_b;
