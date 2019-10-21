@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_sha256.c                                    :+:      :+:    :+:   */
+/*   ft_ssl_sha224.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 22:36:44 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 18:39:44 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/20 18:28:52 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
-#include "ft_ssl_sha256.h"
+#include "ft_ssl_sha224.h"
 
-unsigned int	sha256_rr(unsigned int num, unsigned int rot)
+unsigned int	sha224_rr(unsigned int num, unsigned int rot)
 {
 	unsigned int i;
 	unsigned int r;
@@ -29,19 +29,19 @@ unsigned int	sha256_rr(unsigned int num, unsigned int rot)
 	return (num);
 }
 
-void			sha256_init(unsigned char *input, t_sha256 *t, unsigned int length)
+void			sha224_init(unsigned char *input, t_sha224 *t, unsigned int length)
 {
 	unsigned int i;
 	long long len;
 
-	g_a = 0x6a09e667;
-	g_b = 0xbb67ae85;
-	g_c = 0x3c6ef372;
-	g_d = 0xa54ff53a;
-	g_e = 0x510e527f;
-	g_f = 0x9b05688c;
-	g_g = 0x1f83d9ab;
-	g_h = 0x5be0cd19;
+	g_a = 0xc1059ed8;
+	g_b = 0x367cd507;
+	g_c = 0x3070dd17;
+	g_d = 0xf70e5939;
+	g_e = 0xffc00b31;
+	g_f = 0x68581511;
+	g_g = 0x64f98fa7;
+	g_h = 0xbefa4fa4;
 	t->set = (unsigned char*)ft_strnew(length);
 	ft_strcpy((char *)t->set, (char *)input);
 	len = ft_strlen((char *)input) * 8;
@@ -54,7 +54,7 @@ void			sha256_init(unsigned char *input, t_sha256 *t, unsigned int length)
 	}
 }
 
-void			sha256_set(t_sha256 *t, unsigned int i)
+void			sha224_set(t_sha224 *t, unsigned int i)
 {
 	unsigned int j;
 	unsigned int s1;
@@ -71,8 +71,8 @@ void			sha256_set(t_sha256 *t, unsigned int i)
 	}
 	while (j < 64)
 	{
-		s1 = X(sha256_rr(g_chunk[j - 15], 7), sha256_rr(g_chunk[j - 15], 18), g_chunk[j - 15] >> 3);
-		s2 = X(sha256_rr(g_chunk[j - 2], 17), sha256_rr(g_chunk[j - 2], 19), g_chunk[j - 2] >> 10);
+		s1 = X(sha224_rr(g_chunk[j - 15], 7), sha224_rr(g_chunk[j - 15], 18), g_chunk[j - 15] >> 3);
+		s2 = X(sha224_rr(g_chunk[j - 2], 17), sha224_rr(g_chunk[j - 2], 19), g_chunk[j - 2] >> 10);
 		g_chunk[j] = g_chunk[j - 16] + s1 + g_chunk[j - 7] + s2;
 		j++;
 	}
@@ -82,7 +82,7 @@ void			sha256_set(t_sha256 *t, unsigned int i)
 	t->d = g_d;
 }
 
-void			sha256_loop(t_sha256 *t)
+void			sha224_loop(t_sha224 *t)
 {
 	unsigned int j;
 	unsigned int s1;
@@ -93,9 +93,9 @@ void			sha256_loop(t_sha256 *t)
 	j = 0;
 	while (j < 64)
 	{
-		s1 = X(sha256_rr(t->e, 6), sha256_rr(t->e, 11), sha256_rr(t->e, 25));
-		t1 = Y(t->e, t->f, t->g, t->h, s1, g_sha256[j], g_chunk[j]);
-		s2 = X(sha256_rr(t->a, 2), sha256_rr(t->a, 13), sha256_rr(t->a, 22));
+		s1 = X(sha224_rr(t->e, 6), sha224_rr(t->e, 11), sha224_rr(t->e, 25));
+		t1 = Y(t->e, t->f, t->g, t->h, s1, g_sha224[j], g_chunk[j]);
+		s2 = X(sha224_rr(t->a, 2), sha224_rr(t->a, 13), sha224_rr(t->a, 22));
 		t2 = Z(t->a, t->b, t->c, s2);
 		t->h = t->g;
 		t->g = t->f;
@@ -109,23 +109,23 @@ void			sha256_loop(t_sha256 *t)
 	}
 }
 
-void			sha256(unsigned char *input)
+void			sha224(unsigned char *input)
 {
-	t_sha256 t;
+	t_sha224 t;
 	unsigned int i;
 	unsigned int length;
 
 	i = 0;
 	length = ((ft_strlen((char *)input) + 8) / 64) * 64 + 64;
-	sha256_init(input, &t, length);
+	sha224_init(input, &t, length);
 	while (i < (length * 8) / 512)
 	{
-		sha256_set(&t, i);
+		sha224_set(&t, i);
 		t.e = g_e;
 		t.f = g_f;
 		t.g = g_g;
 		t.h = g_h;
-		sha256_loop(&t);
+		sha224_loop(&t);
 		g_a += t.a;
 		g_b += t.b;
 		g_c += t.c;
@@ -136,7 +136,7 @@ void			sha256(unsigned char *input)
 		g_h += t.h;
 		i++;
 	}
-	ft_printf("%.8x%.8x%.8x%.8x%.8x%.8x%.8x%.8x",
-		g_a, g_b, g_c, g_d, g_e, g_f, g_g, g_h);
+	ft_printf("%.8x%.8x%.8x%.8x%.8x%.8x%.8x",
+		g_a, g_b, g_c, g_d, g_e, g_f, g_g);
 	free(t.set);
 }

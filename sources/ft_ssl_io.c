@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_read.c                                      :+:      :+:    :+:   */
+/*   ft_ssl_io.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 00:53:03 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 02:41:35 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/20 18:28:47 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,27 @@ char	*read_process(int fd)
 	}
     free(buffer);
 	return (container);
+}
+
+void print_before(char *input, char *file)
+{
+    if (g_flag_p)
+		ft_printf("%s", input);
+	else
+	{
+		if (!g_flag_q && !g_flag_r && file != NULL)
+			g_flag_s ? ft_printf("%s (\"%s\") = ", util_hash_name(1), file) :
+				ft_printf("%s (%s) = ", util_hash_name(1), file);
+	}
+}
+
+void print_after(char *input, char *file)
+{
+    if (!g_flag_q && file != NULL && g_flag_r)
+		g_flag_s ? ft_printf(" \"%s\"", file) : ft_printf(" %s", file);
+    ft_printf("\n");
+	g_flag_s ? g_flag_s = 0 : 0;
+	g_flag_p ? g_was_p = 1 : 0;
+	g_flag_p ? g_flag_p = 0 : 0;
+	free(input);
 }

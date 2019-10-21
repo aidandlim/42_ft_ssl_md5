@@ -6,7 +6,7 @@
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 22:37:10 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 04:38:00 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/20 18:43:08 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int     g_was_p;
 
 void	md5(unsigned char *input);
 void	sha256(unsigned char *input);
+void	sha224(unsigned char *input);
+void	sha512(unsigned char *input);
 void	util_init();
 int		util_hash(char *input);
 char    *util_hash_name(int type);
@@ -39,5 +41,7 @@ int		util_flag(char *input);
 void    util_error(int error_num, char *str);
 int		read_check(char *input);
 char	*read_process(int fd);
+void    print_before(char *input, char *file);
+void    print_after(char *input, char *file);
 
 #endif

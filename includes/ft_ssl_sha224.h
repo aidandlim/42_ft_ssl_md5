@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_sha256.h                                    :+:      :+:    :+:   */
+/*   ft_ssl_sha224.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 20:32:23 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 18:16:02 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/20 18:16:18 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_SSL_SHA256_H
-# define FT_SSL_SHA256_H
+#ifndef FT_SSL_SHA224_H
+# define FT_SSL_SHA224_H
 
 # define X(x, y, z) ((x) ^ (y) ^ (z))
 # define Y(x, y, z, a, b, c, d) (((x & y) ^ (~x & z)) + a + b + c + d)
@@ -26,7 +26,7 @@ unsigned int g_f;
 unsigned int g_g;
 unsigned int g_h;
 unsigned int g_chunk[64];
-unsigned int g_sha256[64] = {
+unsigned int g_sha224[64] = {
         0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
         0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
         0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -45,7 +45,7 @@ unsigned int g_sha256[64] = {
         0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
     };
     
-typedef struct		s_sha256
+typedef struct		s_sha224
 {
 	unsigned int	a;
 	unsigned int	b;
@@ -56,6 +56,6 @@ typedef struct		s_sha256
 	unsigned int	g;
 	unsigned int	h;
 	unsigned char	*set;
-}					t_sha256;
+}					t_sha224;
 
 #endif

@@ -77,10 +77,16 @@ norm:
 	norminette ./resources/libft/*.c
 	norminette ./resources/printf/*.c
 
-test:
+flag:
 	@echo ""
-	@echo "$(GREEN_BOLD)MD5$(RESET)"
+	@echo "$(GREEN_BOLD)FLAG CHECK$(RESET)"
 	@echo ""
+
+	@echo "$(YELLOW)nothing check$(RESET)"
+	@echo "$(TEST)exec$(RESET)"
+	@echo "hello world" | ./exec md5
+	@echo "$(TEST)ft_ssl$(RESET)"
+	@echo "hello world" | ./ft_ssl md5
 
 	@echo "$(YELLOW)nothing with echo check$(RESET)"
 	@echo "$(TEST)exec$(RESET)"
@@ -247,182 +253,3 @@ test:
 	@echo "hello world" | ./exec md5 -s -q -s -q hello file "hello" "file"
 	@echo "$(TEST)ft_ssl$(RESET)"
 	@echo "hello world" | ./ft_ssl md5 -s -q -s -q hello file "hello" "file"
-
-	@echo ""
-	@echo "$(GREEN_BOLD)SHA256$(RESET)"
-	@echo ""
-
-	@echo "$(YELLOW)nothing with echo check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256
-	
-	@echo ""
-	
-	@echo "$(YELLOW)-s check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@./exec sha256 -s "hello world"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@./ft_ssl sha256 -s "hello world"
-
-	@echo ""
-	
-	@echo "$(YELLOW)-r check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@./exec sha256 -r ./testcase/short
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@./ft_ssl sha256 -r ./testcase/short
-
-	@echo ""
-	
-	@echo "$(YELLOW)-p check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -p
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -p
-
-	@echo ""
-	
-	@echo "$(YELLOW)-q check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@./exec sha256 -q ./testcase/short
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@./ft_ssl sha256 -q ./testcase/short
-
-	@echo ""
-	
-	@echo "$(YELLOW)-s -r check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -r -s "good morning"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -r -s "good morning"
-
-	@echo ""
-	
-	@echo "$(YELLOW)-r -p check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -r -p
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -r -p
-
-	@echo ""
-	
-	@echo "$(YELLOW)-p -q check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -p -q
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -p -q
-
-	@echo ""
-	
-	@echo "$(YELLOW)-q -s check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -q -s "good evening"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -q -s "good evening"
-
-	@echo ""
-	
-	@echo "$(YELLOW)-p -s check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -p -s "good morning"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -p -s "good morning"
-
-	@echo ""
-	
-	@echo "$(YELLOW)-r -q check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -r -q ./testcase/short
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -r -q ./testcase/short
-
-	@echo ""
-	
-	@echo "$(YELLOW)-r -q -s check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -r -q -s "good evening" ./testcase/short
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -r -q -s "good evening" ./testcase/short
-
-	@echo ""
-
-	@echo "$(YELLOW)-r -p -s check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -r -p -s "good evening" ./testcase/short
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -r -p -s "good evening" ./testcase/short
-	
-	@echo ""
-
-	@echo "$(YELLOW)-s -r -p -q check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -r -p -q -s "good evening" ./testcase/short ./testcase/file errorfile
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -r -p -q -s "good evening" ./testcase/short ./testcase/file errorfile
-
-	@echo ""
-
-	@echo "$(YELLOW)-s -r -p -q check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -r -p -q -s "good evening" -s "good" hello ./testcase/medium
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -r -p -q -s "good evening" -s "good" hello ./testcase/medium
-
-	@echo ""
-
-	@echo "$(YELLOW)hard check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 "good evening" ./testcase/short file "test file"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 "good evening" ./testcase/short file "test file"
-
-	@echo ""
-
-	@echo "$(YELLOW)hard check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -s -s -s -s hello file "hello" "file"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -s -s -s -s hello file "hello" "file"
-
-	@echo ""
-
-	@echo "$(YELLOW)hard check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -r -r -r -r ./testcase/medium hello file "hello" "file"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -r -r -r -r ./testcase/medium hello file "hello" "file"
-
-	@echo ""
-
-	@echo "$(YELLOW)hard check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -p -p -p -p hello file "hello" "file" ./testcase/medium
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -p -p -p -p hello file "hello" "file" ./testcase/medium
-
-	@echo ""
-
-	@echo "$(YELLOW)hard check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -q -q -q -q hello file "hello" "file"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -q -q -q -q hello file "hello" "file"
-
-	@echo ""
-
-	@echo "$(YELLOW)hard check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -s -q -s -q hello file ./testcase/medium "hello" "file"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -s -q -s -q hello file ./testcase/medium "hello" "file"
-
-	@echo ""
-
-	@echo "$(YELLOW)hard check$(RESET)"
-	@echo "$(TEST)exec$(RESET)"
-	@echo "hello world" | ./exec sha256 -p -p -s -p -s hello file "hello" "file"
-	@echo "$(TEST)ft_ssl$(RESET)"
-	@echo "hello world" | ./ft_ssl sha256 -p -p -s -p -s hello file "hello" "file"
-
