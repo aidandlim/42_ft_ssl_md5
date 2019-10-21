@@ -6,32 +6,32 @@
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 22:36:31 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 21:35:50 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/21 02:02:26 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void ft_ssl_switch(char *input, char *file)
+void	ft_ssl_switch(char *input, char *file)
 {
 	print_before(input, file);
 	if (g_hash == 1)
 		md5((unsigned char *)input);
-	else if(g_hash == 2)
+	else if (g_hash == 2)
 		sha256((unsigned char *)input);
-	else if(g_hash == 3)
+	else if (g_hash == 3)
 		sha224((unsigned char *)input);
-	else if(g_hash == 4)
+	else if (g_hash == 4)
 		sha512((unsigned char *)input);
-	else if(g_hash == 5)
+	else if (g_hash == 5)
 		sha384((unsigned char *)input);
 	print_after(input, file);
 }
 
-void ft_ssl_value(char *argv)
+void	ft_ssl_value(char *argv)
 {
-	char *input;
-	int fd;
+	char	*input;
+	int		fd;
 
 	if (argv == NULL)
 		input = read_process(0);
@@ -39,7 +39,7 @@ void ft_ssl_value(char *argv)
 		input = ft_strdup(argv);
 	else
 	{
-		if((fd = read_check(argv)) == -1)
+		if ((fd = read_check(argv)) == -1)
 		{
 			util_error(3, argv);
 			return ;
@@ -49,7 +49,7 @@ void ft_ssl_value(char *argv)
 	ft_ssl_switch(input, argv);
 }
 
-void ft_ssl(int argc, char **argv)
+void	ft_ssl(int argc, char **argv)
 {
 	util_init();
 	if (!util_hash(argv[1]))
@@ -75,12 +75,11 @@ void ft_ssl(int argc, char **argv)
 	}
 }
 
-int main(int argc, char *argv[])
+int		main(int argc, char *argv[])
 {
-	if(argc > 1)
+	if (argc > 1)
 		ft_ssl(argc, argv);
 	else
 		util_error(1, NULL);
-	// system("leaks ft_ssl");
 	return (0);
 }

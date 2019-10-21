@@ -6,13 +6,13 @@
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 22:36:50 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 18:42:48 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/21 02:25:20 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 
-void util_init()
+void	util_init(void)
 {
 	g_i = 2;
 	g_hash = 0;
@@ -24,7 +24,7 @@ void util_init()
 	g_was_p = 0;
 }
 
-int util_hash(char *input)
+int		util_hash(char *input)
 {
 	if (!ft_strcmp(input, "md5") || !ft_strcmp(input, "MD5"))
 		g_hash = 1;
@@ -41,7 +41,7 @@ int util_hash(char *input)
 	return (1);
 }
 
-char *util_hash_name(int type)
+char	*util_hash_name(int type)
 {
 	if (g_hash == 1)
 		return (type ? "MD5" : "md5");
@@ -56,7 +56,7 @@ char *util_hash_name(int type)
 	return (NULL);
 }
 
-int util_flag(char *input)
+int		util_flag(char *input)
 {
 	if (!ft_strcmp(input, "-s") && !g_flag_s)
 		g_flag_s = 1;
@@ -71,12 +71,14 @@ int util_flag(char *input)
 	return (1);
 }
 
-void util_error(int error_num, char *str)
+void	util_error(int error_num, char *str)
 {
 	if (error_num == 1)
 		ft_printf("usage: ft_ssl command [command opts] [command args]\n");
 	else if (error_num == 2)
-		ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\nMessage Digest commands:\nmd5\nsha256\nsha224\nsha512\nsha384\n\n", str);
+		ft_printf("ft_ssl: Error: '%s' is an invalid command.\n\n\
+Message Digest commands:\nmd5\nsha224\nsha256\nsha384\nsha512\n\n", str);
 	else if (error_num == 3)
-		ft_printf("ft_ssl: %s: %s: No such file or directory\n", util_hash_name(0), str);
+		ft_printf("ft_ssl: %s: %s: No such file or directory\n",
+			util_hash_name(0), str);
 }

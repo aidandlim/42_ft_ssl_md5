@@ -6,12 +6,23 @@
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 22:36:37 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 18:28:49 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/21 01:45:03 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "ft_ssl_md5.h"
+
+int		md5_reverse(int i)
+{
+	int result;
+
+	result = (i << 24 & 0xff000000) +
+		(i << 8 & 0xff0000) +
+		(i >> 8 & 0xff00) +
+		(i >> 24 & 0xff);
+	return (result);
+}
 
 void	md5_init(unsigned char *input, t_md5 *t, unsigned int length)
 {
@@ -105,6 +116,6 @@ void	md5(unsigned char *input)
 		i++;
 	}
 	ft_printf("%.8x%.8x%.8x%.8x",
-		REVERSE(g_a), REVERSE(g_b), REVERSE(g_c), REVERSE(g_d));
+		md5_reverse(g_a), md5_reverse(g_b), md5_reverse(g_c), md5_reverse(g_d));
 	free(t.set);
 }

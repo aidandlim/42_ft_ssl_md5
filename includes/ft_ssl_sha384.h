@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ssl_sha512.h                                    :+:      :+:    :+:   */
+/*   ft_ssl_sha384.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 20:32:23 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 22:10:22 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/21 01:50:02 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ unsigned long long g_e;
 unsigned long long g_f;
 unsigned long long g_g;
 unsigned long long g_h;
-unsigned long long g_chunk[80];
+unsigned long long g_w[80];
 unsigned long long g_sha384[80] = {
-    0x428a2f98d728ae22, 0x7137449123ef65cd,
+	0x428a2f98d728ae22, 0x7137449123ef65cd,
 	0xb5c0fbcfec4d3b2f, 0xe9b5dba58189dbbc,
 	0x3956c25bf348b538, 0x59f111f1b605d019,
 	0x923f82a4af194f9b, 0xab1c5ed5da6d8118,
@@ -70,7 +70,7 @@ unsigned long long g_sha384[80] = {
 	0x5fcb6fab3ad6faec, 0x6c44198c4a475817
 };
 
-typedef struct	s_sha384
+typedef struct			s_sha384
 {
 	unsigned long long	a;
 	unsigned long long	b;
@@ -81,6 +81,6 @@ typedef struct	s_sha384
 	unsigned long long	g;
 	unsigned long long	h;
 	unsigned char		*set;
-}				t_sha384;
+}						t_sha384;
 
 #endif

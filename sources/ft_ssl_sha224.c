@@ -6,17 +6,17 @@
 /*   By: dlim <dlim@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 22:36:44 by dlim              #+#    #+#             */
-/*   Updated: 2019/10/20 20:16:55 by dlim             ###   ########.fr       */
+/*   Updated: 2019/10/21 01:46:23 by dlim             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ssl.h"
 #include "ft_ssl_sha224.h"
 
-void			sha224_init(unsigned char *input, t_sha224 *t, unsigned int length)
+void	sha224_init(unsigned char *input, t_sha224 *t, unsigned int length)
 {
-	unsigned int i;
-	long long len;
+	unsigned int	i;
+	long long		len;
 
 	g_a = 0xc1059ed8;
 	g_b = 0x367cd507;
@@ -38,31 +38,33 @@ void			sha224_init(unsigned char *input, t_sha224 *t, unsigned int length)
 	}
 }
 
-void			sha224_set(t_sha224 *t, unsigned int i)
+void	sha224_set(t_sha224 *t, unsigned int i)
 {
 	unsigned int j;
 	unsigned int s1;
 	unsigned int s2;
-	
+
 	j = 0;
 	while (j < 16)
 	{
 		g_chunk[j] = (t->set[i * 64 + j * 4 + 0] << 24) +
 			(t->set[i * 64 + j * 4 + 1] << 16) +
-			(t->set[i * 64 + j * 4 + 2] << 8) + 
+			(t->set[i * 64 + j * 4 + 2] << 8) +
 			(t->set[i * 64 + j * 4 + 3] << 0);
 		j++;
 	}
 	while (j < 64)
 	{
-		s1 = X(RR_32(g_chunk[j - 15], 7), RR_32(g_chunk[j - 15], 18), g_chunk[j - 15] >> 3);
-		s2 = X(RR_32(g_chunk[j - 2], 17), RR_32(g_chunk[j - 2], 19), g_chunk[j - 2] >> 10);
+		s1 = X(RR_32(g_chunk[j - 15], 7), RR_32(g_chunk[j - 15], 18),
+			g_chunk[j - 15] >> 3);
+		s2 = X(RR_32(g_chunk[j - 2], 17), RR_32(g_chunk[j - 2], 19),
+			g_chunk[j - 2] >> 10);
 		g_chunk[j] = g_chunk[j - 16] + s1 + g_chunk[j - 7] + s2;
 		j++;
 	}
 }
 
-void			sha224_loop(t_sha224 *t)
+void	sha224_loop(t_sha224 *t)
 {
 	unsigned int j;
 	unsigned int s1;
@@ -115,11 +117,11 @@ void	sha224_copy(t_sha224 *t, int type)
 	}
 }
 
-void			sha224(unsigned char *input)
+void	sha224(unsigned char *input)
 {
-	t_sha224 t;
-	unsigned int i;
-	unsigned int length;
+	t_sha224		t;
+	unsigned int	i;
+	unsigned int	length;
 
 	i = 0;
 	length = ((ft_strlen((char *)input) + 8) / 64) * 64 + 64;
